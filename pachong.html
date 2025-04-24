@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PT · 工作室 | 视频抓取</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <meta name="keywords" content="PT, 工作室, 个人博客, protaos.com,protaos,pt,PT,技术博客,导航">
+  <meta name="description" content="PT的个人博客">
+  <link rel="stylesheet" href="JS/bootstrap.min.css">
+  <script src="JS/vue.global.prod.js"></script>
+  <script src="JS/marked.min.js"></script>
+  <link rel="stylesheet" href="statics.css">
+  <link rel="stylesheet" href="calendar.css">
+  <link rel="stylesheet" href="chatbox.css">
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1277d324878bae2f037158a6e34f6151";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+  <script src="unit.js"></script>
+  <script src="JS/axios.min.js"></script>
+</head>
+<body>
+  <div id="app" v-show="!isLoading">
+    <!-- 视频爬取 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>视频爬取</h1>
+          <p>
+            视频爬取是指从互联网上获取视频内容的过程。通常，视频爬取是为了获取视频资源，以便在自己的网站或应用程序中使用。
+          </p>
+          <!-- hotBlbl 遍历新闻列表显示 col-lg-4 -->
+          <div class="row">
+            <div class="col-lg-4">
+                <div class="tips">哔哩哔哩热搜</div>
+                <!-- ul li -->
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(item, index) in hotBlbl" :key="index">
+                    <a :href="`/${item.hot_id}`" target="_blank">{{ item.show_name }}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 知乎热搜 -->
+            <div class="col-lg-4">
+                <div class="tips">头条热搜</div>
+                <!-- ul li -->
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(item, index) in hotZhihu" :key="index">
+                    <a :href="`${item.mobile_url}`" target="_blank">{{ item.title }}</a>
+                    </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- loading 加载窗口 -->
+    <div id="loading" v-if="isLoading">
+      <div class="loading">
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+        <div class="loadingtitlr">加载中...</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 请勿删除此脚本，否则将违反相关法律法规
+    console.log('请勿删除此脚本，否则将违反相关法律法规');
+    // 计算网站运行时间
+    function getRunDays() {
+      var now = new Date();
+      var start = new Date('2025-03-17 17:17');
+      var days = (now - start) / 1000 / 60 / 60 / 24;
+      return days.toFixed(2);
+    }
+  </script>
+  <script src="prompt.js"></script>
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          version: '1.0.0', // 版本号
+          isLoading: false, // 加载状态
+          keywords: '', // 输入框内容
+          hotBlbl:[], // 热搜 blbl
+          hotZhihu:[], // 热搜 知乎
+          hotWeibo:[], // 热搜 微博
+        };
+      },
+      methods: {
+        // 获取热搜 blbl
+        async getHot() {
+            this.isLoading = true;
+            fetch('https://api.protaos.com/api/getblbl', {
+                method: 'GET',
+            })
+            .then(async (response) => {
+                let a = await response.json()
+                console.log(a.data.list)
+                this.hotBlbl = a.data.list
+                this.isLoading = false;
+            })
+        },
+        // 获取热搜 知乎
+        async getHotZhihu() {
+            this.isLoading = true;
+
+            fetch('http://127.0.0.1:8089/api/getzhihu', {
+                method: 'GET',
+            })
+           .then(async (response) => {
+                let a = await response.json()
+                this.hotZhihu = JSON.parse(a.data.list)
+           })
+        },
+        // 获取热搜头条
+        async getHotWeibo() {
+            this.isLoading = true;
+            
+            fetch('http://127.0.0.1:8089/api/getweibo', {
+                method: 'GET',
+            })
+          .then(async (response) => {
+                let a = await response.json()
+                console.log(a.data)
+                // this.hotWeibo = JSON.parse(a.data.list)
+           })
+        },
+        // 实现爬取B站指定视频链接 获取视频资源的功能
+        async search() {
+            this.getHot();
+            this.getHotZhihu();
+            this.getHotWeibo();
+        },
+      },
+      // 加载完成后执行
+      mounted() {
+        setTimeout(() => {
+          this.isLoading = false;
+          this.search();
+        },10);
+      },
+    }).mount("#app");
+  </script>
+  <script>
+    // 禁止右键
+    document.oncontextmenu = function () {
+      return false;
+    };
+    // 定义一个函数来检查窗口宽度并处理响应
+    function handleWindowResize() {
+      if (window.innerWidth < 800) {
+        document.body.innerHTML = '使用PC访问';
+        document.body.style.textAlign = 'center';
+        document.body.style.fontSize = '20px';
+      } else {
+        // 当窗口宽度大于等于800px时，恢复页面内容
+        // 这里可以根据实际情况添加恢复页面内容的逻辑
+      }
+    }
+
+    // 页面加载完成后立即检查窗口宽度
+    window.addEventListener('load', handleWindowResize);
+
+    // 监听窗口大小变化事件
+    window.addEventListener('resize', handleWindowResize);
+        
+  </script>
+</body>
+</html>

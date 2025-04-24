@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片</title>
+    <script src="JS/vue.global.prod.js"></script>
+    <style>
+        body{
+            margin: 0;padding: 0;
+        }
+        .box-wrapper {
+            column-count: 4;
+            column-gap: 0;
+            box-sizing: border-box;
+        }
+    
+        .box-item {
+            box-sizing: border-box;
+            break-inside: avoid;
+            padding: 0;
+        }
+    
+        .box-item > div {
+            height: 100%;
+            box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .img{
+            width: 100%;border-radius:10px;cursor: pointer;
+            transition: all 0.5s;
+        }
+        .img:hover{
+            transform: scale(1.1);
+        }
+        .centertxt{
+            text-align: center;
+            font-size:14px;
+            font-weight:normal;
+            margin: 10px 0;
+            color: #999;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="app">
+        <!-- desc -->
+        <div class="centertxt">{{desc}} {{tips}}</div>
+        <div class="box-wrapper">
+            <div class="box-item" v-for="item in list" :key="item" @click="open(item.url)">
+                <div class="box">
+                    <img class="img" :src="item.url" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { createApp } = Vue;
+        // vue
+        createApp({
+            data() {
+                return {
+                    desc:"如果有侵权，请告知我删除，谢谢",// 如果有侵权，请告知我删除，谢谢
+                    tips:"图片均来自抖音评论区",// 图片均来自抖音
+                    list: [
+                        {
+                            title:"托举者",
+                            url: 'https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/eefa30d9ee244a38972a15a389689691~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743260400&x-signature=bcl88dhXApCpq6vpVcfArK4JDfM%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329175612188023848680A06E6221'
+                        },
+                        {
+                            title:"托举者",
+                            url: 'https://p9-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/dd697aeb7da3460bb500ff147963f070~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743264000&x-signature=OnFcxKKdu%2Fqp%2Fzcm8ZAjxBQRER4%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=202503291810205D022D7B3EBA636FB949'
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/1e657e81291f427d81ff0b0a9ff745e3~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743264000&x-signature=dwINR0lsFBVLe0MEEBNzcDfPt58%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329181213D1E2271C196371729B70" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/ba1e6366df80444eaf1f721b94c92f3d~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743264000&x-signature=iyiTxh59QDoNP6WZxjrMMx%2BDQqo%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329181359B2368CA8CDD5B773329A" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/8bf273ab1a094a58aca20db0c52df238~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743264000&x-signature=TOgezzxSoW%2FmXeQNMVrFJ3B%2BgoA%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=202503291814347CF69E8B5130AA734A6B" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/41fc7f0c4f344c01948d8f27ef6a1afd~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743264000&x-signature=G4goxRL99Tcnfb%2BiTGx0bx3G1mI%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329181533CC501B08A9C0346FC73C" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p26-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/509f8832fc29459b941bdcdf6c51e3d3~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743264000&x-signature=QVXVOmVxEOJxIolNdmb9r8SB1Y4%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=2025032918193318AE1C32A758F57255BA" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/aebc32401bc944c0bb26a191b525289a~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743267600&x-signature=c2sz92zxOVZ1Alp8BryJ5TwTnsA%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=2025032919070187975AD126C822790212" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p26-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/d9ada63da53649b1952edb7d097dd234~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743267600&x-signature=azA8ql1uS8WVF0QwTyyORPxIte0%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=202503291916399B039FFA6A61587CB8E0" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p11-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/9cf21d0b8c1e450f8b2bfda52264d7bb~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743267600&x-signature=mqXOTQlVZFpQgjn6gtz18MszBf0%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329192024A60EA7960D102679AEA4" 
+                        },
+                        {
+                            title:"托举者",
+                            url:"https://p26-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/16149905cde24dafabb06aec60bd7daa~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743267600&x-signature=RPQTpuoAHh6v4PHBGOT5PFD2WNg%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329192640B407E697063A2A7F0E40" 
+                        },
+                        // {
+                        //     title:"托举者",
+                        //     url:"https://p11-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/4086748462b247649d16caf47cbfb0fd~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743267600&x-signature=psmOtBQM1f52OmqYYh%2FXZG%2BrLFw%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=202503291933358FE37CDE9B059178E61E" 
+                        // },
+                        // {
+                        //     title:"托举者",
+                        //     url:"https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/ed70006119c34efa9ef83eb994083933~tplv-p14lwwcsbr-7.image?lk3s=7b078dd2&x-expires=1743267600&x-signature=pNisOyGoCeJ7cEr0Ry2UqI5OYcM%3D&from=2064092626&se=false&sc=image&biz_tag=aweme_comment&l=20250329193802EA01175A22CC61815219" 
+                        // },
+                        // {
+                        //     title:"托举者",
+                        //     url:"" 
+                        // },
+                    ]
+                }
+            },
+            methods:{
+               open(url){
+                    window.open(url)
+               }
+            },
+            created(){
+                    
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

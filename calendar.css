@@ -1,0 +1,54 @@
+/* 日历模块的样式 */
+.calendar{
+    margin: 0 auto;
+    width: 100%;
+    /* background-color: #fff; */
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ffffff;
+    user-select: none;
+  }
+  .calendar-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size:12px;
+  }
+  .calendar-header button{
+    border: none;
+    background-color: transparent;
+    font-size: 20px;display: none;
+    cursor: pointer;
+  }
+ .calendar-header button:hover{
+    color: #ccc;
+  }
+ .calendar-header h2{
+    font-size:12px !important;
+    margin: 0;
+  }
+  .calendar-body{
+    display: grid;
+    padding:6px;
+    font: 0.875rem sans-serif;
+  }
+  .current-day{
+    color: #fff !important;
+    border-radius: 10%;
+    font-weight:700 !important;
+    color: rgb(0, 0, 0) !important;
+    font-size:12px !important;
+    text-shadow:0 0px 20px rgb(0, 255, 13);
+  }
+.calendar-body td{
+    text-align: center;
+    padding:5px 0px;
+    cursor: pointer;
+    color: #999;
+    font-size: 12px;font-weight:normal;
+    user-select: none;
+}
+.calendar thead{
+    font-size: 12px;
+}
